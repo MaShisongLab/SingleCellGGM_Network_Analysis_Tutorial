@@ -2,7 +2,7 @@
 
 This is a tutorial on how to conduct single-cell gene co-expression network analysis using SingleCellGGM.
 
-## 1. Obtain single-cell gene co-expression network using the SingleCellGGM
+## 1. Obtain single-cell gene co-expression network using SingleCellGGM
 
 SingleCellGGM takes a log-normalized gene expression matrix, the number of iterations, the names of the genes, and the name of dataset as inputs. The expression matrix should have samples in rows and genes in columns. The sample numbers should be large and the low-expression genes should be filtered out first. Please refer to the [SingleCellGGM package](https://github.com/MaShisongLab/SingleCellGGM) for details.
 
