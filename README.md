@@ -41,7 +41,7 @@ writetable(ggm.SigEdges(:,1:3),'mca.ggm.network.txt','Delimiter','tab','WriteVar
 % Also save all the gene used for network analysis into a file.
 writecell (ggm.gene_name, 'mca.ggm.network.allgenes.txt')
 ```
-## 2. Clustering the network into gene modules using the MCL algorithm 
+## 2. Cluster the network into gene modules using the MCL algorithm 
 
 The [MCL algorithm](https://www.micans.org/mcl/) should be installed.
 
@@ -52,7 +52,7 @@ The [MCL algorithm](https://www.micans.org/mcl/) should be installed.
 mcl mca.ggm.network.txt -I 1.7 -scheme 7 -o MCLresult -te 20 --abc
 ```
 
-## 3. Convert the MCLresult result file into a table with module information in R
+## 3. Convert the MCLresult result file into a table with module information
 
 We will use R to do the job.
 
