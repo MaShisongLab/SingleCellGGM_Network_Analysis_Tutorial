@@ -2,7 +2,7 @@
 
 This is a tutorial on how to conduct single-cell gene co-expression network analysis using SingleCellGGM.
 
-## 1. Obtain single-cell gene co-expression network using the SingleCellGGM.
+## 1. Obtain single-cell gene co-expression network using the SingleCellGGM
 
 SingleCellGGM takes a log-normalized gene expression matrix, the number of iterations, the names of the genes, and the name of dataset as inputs. The expression matrix should have samples in rows and genes in columns. The sample numbers should be large and the low-expression genes should be filtered out first. Please refer to the [SingleCellGGM package](https://github.com/MaShisongLab/SingleCellGGM) for details.
 
@@ -41,7 +41,7 @@ writetable(ggm.SigEdges(:,1:3),'mca.ggm.network.txt','Delimiter','tab','WriteVar
 % Also save all the gene used for network analysis into a file.
 writecell (ggm.gene_name, 'mca.ggm.network.allgenes.txt')
 ```
-## 2. Clustering the network into gene modules using the MCL algorithm. 
+## 2. Clustering the network into gene modules using the MCL algorithm 
 
 The [MCL algorithm](https://www.micans.org/mcl/) should be installed.
 
@@ -52,7 +52,7 @@ The [MCL algorithm](https://www.micans.org/mcl/) should be installed.
 mcl mca.ggm.network.txt -I 1.7 -scheme 7 -o MCLresult -te 20 --abc
 ```
 
-## 3. Convert the MCLresult refulst file into a table with module information in R.
+## 3. Convert the MCLresult result file into a table with module information in R
 
 We will use R to do the job.
 
@@ -77,9 +77,9 @@ GGM_Modules$Module_GEP_ID <- paste("M",sprintf(fmt,as.numeric(GGM_Modules$Module
 write.table(GGM_Modules,"mca.ggm.network.modules.txt",row.names = F,sep="\t",quote=F)
 ```
 
-## 4. GO and MP enrichment analysis for the identified GEPs.
+## 4. GO and MP enrichment analysis for the identified GEPs
 
-This step uses the ModuleEnrichmentAnalysis package to conduct GO and MP enrichment analysis for the identified modules. Please refer to the ModuleEnrichmentAnalysis package for more details.
+This step uses the [ModuleEnrichmentAnalysis package](https://github.com/MaShisongLab/EnrichmentAnalysis_test) to conduct GO and MP enrichment analysis for the identified modules. Please refer to the ModuleEnrichmentAnalysis package for more details.
 
 Copy the file 'mca.ggm.network.allgenes.txt' generated in the 1st step and the file 'mca.ggm.network.modules.txt' generated in the 3rd step into the working directory of the ModuleEnrichmentAnaysis package, the perform enrichment analysis in R.
 
