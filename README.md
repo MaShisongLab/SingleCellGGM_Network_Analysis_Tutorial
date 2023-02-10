@@ -6,7 +6,7 @@ This is a tutorial on how to conduct single-cell gene co-expression network anal
 
 SingleCellGGM takes a log-normalized gene expression matrix, the number of iterations, the names of the genes, and the name of dataset as inputs. The expression matrix should have samples in rows and genes in columns. The sample numbers should be large and the low-expression genes should be filtered out first. Please refer to the [SingleCellGGM package](https://github.com/MaShisongLab/SingleCellGGM) for details.
 
-we use a mouse single-cell gene expression matrix obtained from the MCA project ([Han *et al*, 2018](#References)) as an example to demonstrate how to conduct single-cell GGM gene co-expression network analysis via scGGM. The matrix file "MCA_Figure2-batch-removed.txt.tar.gz" can be downloaded from [Figshare](https://figshare.com/ndownloader/files/10351110?private_link=865e694ad06d5857db4b) as provided by MCA. Unzip and place the file "Figure2-batch-removed.txt" into the MATLAB working folder. We also obtained the Ensembl gene IDs for the genes within the matrix and saved it in a file "data/MCA.ensembl.gene.ids.txt". 
+We use a mouse single-cell gene expression matrix obtained from the MCA project ([Han *et al*, 2018](#References)) as an example to demonstrate how to conduct single-cell GGM gene co-expression network analysis via SingleCellGGM. The matrix file "MCA_Figure2-batch-removed.txt.tar.gz" can be downloaded from [Figureshare](https://figshare.com/ndownloader/files/10351110?private_link=865e694ad06d5857db4b) as provided by MCA. Unzip and place the file "Figure2-batch-removed.txt" into the MATLAB working folder. We also obtained the Ensembl gene IDs for the genes within the matrix and saved it in a file "data/MCA.ensembl.gene.ids.txt" within the SingleCellGGM package.  
 
 ```matlab
 % MATLAB code
@@ -28,8 +28,8 @@ idx = contains(gene,'ENSMUSG');
 expression_matrix = expression_matrix(:,idx);
 gene = gene(idx);
 
-% Conduct single-cell gene co-expression analysis via scGGM
-ggm = scggm( expression_matrix, 20000, gene, 'mca')
+% Conduct single-cell gene co-expression analysis via SingleCellGGM
+ggm = SingleCellGGM( expression_matrix, 20000, gene, 'mca')
 
 % Examine the results
 ggm
