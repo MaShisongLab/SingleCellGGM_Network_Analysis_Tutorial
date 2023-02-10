@@ -1,6 +1,6 @@
 # SingleCellGGM_Network_Analysis_Tutorial
 
-## A tutorial on how to conduct single-cell gene co-expression network analysis using SingleCellGGM.
+A tutorial on how to conduct single-cell gene co-expression network analysis using SingleCellGGM.
 
 ## 1. Conduct network single-cell gene co-expression network analysis using the SingleCellGGM algorithm.
 
