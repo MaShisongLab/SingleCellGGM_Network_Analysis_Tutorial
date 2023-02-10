@@ -1,12 +1,10 @@
-# SingleCellGGM_Network_Analysis_Tutorial
+# A tutorial on SingleCellGGM network analysis
 
-A tutorial on how to conduct single-cell gene co-expression network analysis using SingleCellGGM.
+This is a tutorial on how to conduct single-cell gene co-expression network analysis using SingleCellGGM.
 
-## 1. Conduct network single-cell gene co-expression network analysis using the SingleCellGGM algorithm.
+## 1. Obtain single-cell gene co-expression network using the SingleCellGGM.
 
-Please refer to the SingleCellGGM package for details.
-
-SingleCellGGM takes a log-normalized gene expression matrix, the number of iterations, the names of the genes, and the name of dataset as inputs. The expression matrix should have samples in rows and genes in columns. The sample numbers should be large and the low-expression genes should be filtered out first.
+SingleCellGGM takes a log-normalized gene expression matrix, the number of iterations, the names of the genes, and the name of dataset as inputs. The expression matrix should have samples in rows and genes in columns. The sample numbers should be large and the low-expression genes should be filtered out first. Please refer to the [SingleCellGGM package](https://github.com/MaShisongLab/SingleCellGGM) for details.
 
 we use a mouse single-cell gene expression matrix obtained from the MCA project ([Han *et al*, 2018](#References)) as an example to demonstrate how to conduct single-cell GGM gene co-expression network analysis via scGGM. The matrix file "MCA_Figure2-batch-removed.txt.tar.gz" can be downloaded from [Figshare](https://figshare.com/ndownloader/files/10351110?private_link=865e694ad06d5857db4b) as provided by MCA. Unzip and place the file "Figure2-batch-removed.txt" into the MATLAB working folder. We also obtained the Ensembl gene IDs for the genes within the matrix and saved it in a file "data/MCA.ensembl.gene.ids.txt". 
 
@@ -39,6 +37,9 @@ ggm.SigEdges(1:5,:)
 
 % Save all gene pairs to a file for gene co-expression construction
 writetable(ggm.SigEdges(:,1:3),'mca.ggm.network.txt','Delimiter','tab','WriteVariableNames',FALSE)
+
+% Also save all the gene used for network analysis into a file.
+writecell (ggm.gene_name, 'mca.ggm.network.allgenes.txt')
 ```
 ## 2. Clustering the network into gene modules using the MCL algorithm. 
 
@@ -51,7 +52,7 @@ The [MCL algorithm](https://www.micans.org/mcl/) should be installed.
 mcl mca.ggm.network.txt -I 1.7 -scheme 7 -o MCLresult -te 20 --abc
 ```
 
-## 3. Convert the MCLresult into a table with module information in R.
+## 3. Convert the MCLresult refulst file into a table with module information in R.
 
 We will use R to do the job.
 
@@ -73,10 +74,23 @@ fmt = c("%01d","%02d","%03d","%04d","%05d")[min((floor(log(j, 10)) + 1), 5)]
 GGM_Modules$Module_GEP_ID <- paste("M",sprintf(fmt,as.numeric(GGM_Modules$Module_GEP_ID)), sep = "")
 
 # Save the table to an output file
-write.csv(GGM_Modules,"mca.ggm.network.modules.csv",row.names = F)
+write.table(GGM_Modules,"mca.ggm.network.modules.txt",row.names = F,sep="\t",quote=F)
 ```
 
 ## 4. GO and MP enrichment analysis for the identified GEPs.
 
-To be done.
+This step uses the ModuleEnrichmentAnalysis package to conduct GO and MP enrichment analysis for the identified modules. Please refer to the ModuleEnrichmentAnalysis package for more details.
+
+Copy the file 'mca.ggm.network.allgenes.txt' generated in the 1st step and the file 'mca.ggm.network.modules.txt' generated in the 3rd step into the working directory of the ModuleEnrichmentAnaysis package, the perform enrichment analysis in R.
+
+```R
+# R code
+source('EnrichmentAnalysis.R')
+go = go_enrichment_analysis(cluster_file = 'mca.ggm.network.modules.txt', bk_gene_file = 'mca.ggm.network.allgenes.txt')
+mp = mp_enrichment_analysis(cluster_file = 'mca.ggm.network.modules.txt', bk_gene_file = 'mca.ggm.network.allgenes.txt')
+write.csv(go,'mca.ggm.go.results.csv')
+write.csv(mp,'mca.ggm.mp.results.csv')
+```
+The results are saved to `mca.ggm.go.results.csv` and `mca.ggm.mp.results.csv`.
+
 
