@@ -85,12 +85,12 @@ fmt = c("%01d","%02d","%03d","%04d","%05d")[min((floor(log(j, 10)) + 1), 5)]
 GGM_Modules$Module_GEP_ID <- paste("M",sprintf(fmt,as.numeric(GGM_Modules$Module_GEP_ID)), sep = "")
 
 # Save the table to an output file
-write.table(GGM_Modules,"mca.ggm.network.modules.txt",row.names = F,sep="\t",quote=F)
+write.table(GGM_Modules,"mca.ggm.network.modules.txt",row.names = F,sep="\t",quote=F)  
 ```
 
 ## 4. GO and MP enrichment analysis for the identified GEPs
 
-This step uses the [ModuleEnrichmentAnalysis package](https://github.com/MaShisongLab/EnrichmentAnalysis_test) to conduct GO and MP enrichment analysis for the identified modules. Please refer to the ModuleEnrichmentAnalysis package for more details.
+This step uses the [ModuleEnrichmentAnalysis package](https://github.com/MaShisongLab/ModuleEnrichmentAnalysis) to conduct GO and MP enrichment analysis for the identified modules. Please refer to the ModuleEnrichmentAnalysis package for more details.
 
 Copy the file 'mca.ggm.network.allgenes.txt' generated in the 1st step and the file 'mca.ggm.network.modules.txt' generated in the 3rd step into the working directory of the ModuleEnrichmentAnaysis package, the perform enrichment analysis in R.
 
